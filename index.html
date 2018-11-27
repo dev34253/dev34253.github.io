@@ -126,8 +126,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         let dataAccess = new YacoinDataAccess();
-        dataAccess.refresh();
-        // setInterval(() => { dataAccess.refresh() }, 60000); // TOOD revert
+        setInterval(() => { dataAccess.refresh() }, 60000); // TOOD revert
     });
 </script>
 

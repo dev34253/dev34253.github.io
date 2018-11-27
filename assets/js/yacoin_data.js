@@ -5,7 +5,7 @@ class YacoinDataAccess {
         this.client = stitch.Stitch.initializeDefaultAppClient('yacoinapp-iwlqx');
         this.db = this.client.getServiceClient(stitch.RemoteMongoClient.factory, 'yacoinservice').db('yacoindb');
         this.client.auth.loginWithCredential(new stitch.AnonymousCredential())
-            .then(user => console.log("Logged in"))
+            .then(user => this.refresh())
             .catch(err => {
                 console.error(err)
             });
