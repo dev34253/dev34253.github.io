@@ -2,6 +2,10 @@
 
 class YacoinDataAccess {
     constructor() {
+        this.timestamps = [];
+        this.networkhashdata = [];
+        this.blocktimedata = [];
+
         this.client = stitch.Stitch.initializeDefaultAppClient('yacoinapp-iwlqx');
         this.db = this.client.getServiceClient(stitch.RemoteMongoClient.factory, 'yacoinservice').db('yacoindb');
         this.client.auth.loginWithCredential(new stitch.AnonymousCredential())
@@ -11,56 +15,89 @@ class YacoinDataAccess {
             });
     }
 
-    drawPlotly(timestamps, networkhashdata, blocktimedata) {
+    drawHash() {
         let data = [{
-            x: timestamps,
-            y: networkhashdata
+            x: this.timestamps,
+            y: this.networkhashdata
         }];
-        let layoutHash = {            
+        
+        let ts1 = this.timestamps[100];
+        let ts2 = this.timestamps[Math.round(this.timestamps.length/2)];
+        let ts3 = this.timestamps[this.timestamps.length-100];
+
+        let layoutHash = {
             height: 400,
             xaxis: {
-                tickangle: 45
+                tickvals: [ts1,ts2,ts3],
+                ticktext: [ts1,ts2,ts3]
             },
             yaxis: {
-                range: [0, Math.max(...networkhashdata)]
+                rangemode: 'tozero'
             }
         };
-        Plotly.plot(document.getElementById('chartNetworkHashPower'), data, layoutHash, {displayModeBar: false});
-        
+        Plotly.react('chartNetworkHashPower', data, layoutHash, { displayModeBar: false });
+    }
+
+    drawTime() {
         let dataTime = [{
-            x: timestamps,
-            y: blocktimedata
+            x: this.timestamps,
+            y: this.blocktimedata
         }]
-        
-        let layoutTime = {            
+
+        let ts1 = this.timestamps[100];
+        let ts2 = this.timestamps[Math.round(this.timestamps.length/2)];
+        let ts3 = this.timestamps[this.timestamps.length-100];
+
+        let layoutTime = {
             height: 400,
-            xaxis: {                
-                tickangle: 45
+            xaxis: {
+                tickvals: [ts1,ts2,ts3],
+                ticktext: [ts1,ts2,ts3]
             },
             yaxis: {
-                range: [0, Math.max(...blocktimedata)]
+                range: [0, Math.max(...this.blocktimedata)]
             }
         };
-        Plotly.plot(document.getElementById('chartTimeSinceBlock'), dataTime, layoutTime, {displayModeBar: false});
+        Plotly.react('chartTimeSinceBlock', dataTime, layoutTime, { displayModeBar: false });
+    }
+
+    draw() {
+        this.drawHash();
+        this.drawTime();
     }
 
     refresh() {
-        this.db.collection("networkstats")
-            .find({}, { limit: 2880, sort: { "time": 1 } })
-            .asArray()
-            .then((docs) => {
-                console.log("got data");
-                let timestamps = [];
-                let hashdatapoints = [];
-                let blocktimedatapoints = [];
-                for (let i = 0; i < docs.length; i++) {
-                    let doc = docs[i];
-                    timestamps.push(new Date(doc.time).toLocaleString());                    
-                    hashdatapoints.push(doc.networkHashPower);
-                    blocktimedatapoints.push(doc.timeSinceLastBlock / 60);
-                }
-                this.drawPlotly(timestamps, hashdatapoints, blocktimedatapoints);
+        this.readData()
+            .then(() => {
+                this.draw();
+            })
+            .catch((err) => {
+                console.log("ERROR data access");
             });
+    }
+
+    readData() {
+        return new Promise((resolve, reject) => {
+            this.db.collection("networkstats")
+                .find({}, { limit: 2880, sort: { "time": 1 } })
+                .asArray()
+                .then((docs) => {
+                    this.timestamps = [];
+                    this.networkhashdata = [];
+                    this.blocktimedata = [];
+                    for (let i = 0; i < docs.length; i++) {
+                        let doc = docs[i];
+                        this.timestamps.push(new Date(doc.time).toLocaleString());
+                        this.networkhashdata.push(doc.networkHashPower);
+                        this.blocktimedata.push(doc.timeSinceLastBlock / 60);
+                    }
+                    resolve();
+                })
+                .catch((err) => {
+                    console.log("ERROR getting data");
+                    reject(err);
+                });
+        });
     }
 
 }

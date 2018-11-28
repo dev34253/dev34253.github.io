@@ -1841,8 +1841,19 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .navbar-default {
-    background-color: rgba(255, 255, 255, 0.96);
+    /* background-color: rgba(255, 255, 255, 0.96); */
+    background: #256bb1;
+    background: -moz-linear-gradient(top, #256bb1 0%, #2e6eb7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #256bb1), color-stop(100%, #2e6eb7));
+    background: -webkit-linear-gradient(top, #256bb1 0%, #2e6eb7 100%);
+    background: -o-linear-gradient(top, #256bb1 0%, #2e6eb7 100%);
+    background: -ms-linear-gradient(top, #256bb1 0%, #2e6eb7 100%);
+    background: linear-gradient(to bottom, #256bb1 0%, #2e6eb7 100%);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar-default .navbar-brand {
+    color: #FFFFFF;
 }
 
 .navbar-default .navbar-nav > li > a:not(.btn) {
@@ -1966,6 +1977,10 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .navbar-toggle .icon-bar {
+    background-color: #FFFFFF;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
     background-color: #FFFFFF;
 }
 
