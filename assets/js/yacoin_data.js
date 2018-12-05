@@ -79,14 +79,15 @@ class YacoinDataAccess {
     readData() {
         return new Promise((resolve, reject) => {
             this.db.collection("networkstats")
-                .find({}, { limit: 2880, sort: { "time": 1 } })
+                .find({}, { limit: 2880, sort: { "time": -1 } }) // get descending to get latest value
                 .asArray()
                 .then((docs) => {
                     this.timestamps = [];
                     this.networkhashdata = [];
                     this.blocktimedata = [];
+                    console.log("Entries: "+docs.length);
                     for (let i = 0; i < docs.length; i++) {
-                        let doc = docs[i];
+                        let doc = docs[docs.length-i-1]; // invert order
                         this.timestamps.push(new Date(doc.time).toLocaleString());
                         this.networkhashdata.push(doc.networkHashPower);
                         this.blocktimedata.push(doc.timeSinceLastBlock / 60);
