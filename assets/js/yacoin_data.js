@@ -17,10 +17,10 @@ class YacoinDataAccess {
             });
     }
 
-    drawHash() {
+    drawChart(chartId, yseries, ymax=0){
         let data = [{
             x: this.timestamps,
-            y: this.networkhashdata
+            y: yseries
         }];
         
         let ts1 = this.timestamps[100];
@@ -33,88 +33,22 @@ class YacoinDataAccess {
                 tickvals: [ts1,ts2,ts3],
                 ticktext: [ts1,ts2,ts3]
             },
-            yaxis: {
-                rangemode: 'tozero'
+            yaxis: {                
             }
         };
-        Plotly.react('chartNetworkHashPower', data, layoutHash, { displayModeBar: false });
-    }
-
-    drawTime() {
-        let dataTime = [{
-            x: this.timestamps,
-            y: this.blocktimedata
-        }]
-
-        let ts1 = this.timestamps[100];
-        let ts2 = this.timestamps[Math.round(this.timestamps.length/2)];
-        let ts3 = this.timestamps[this.timestamps.length-100];
-
-        let layoutTime = {
-            height: 400,
-            xaxis: {
-                tickvals: [ts1,ts2,ts3],
-                ticktext: [ts1,ts2,ts3]
-            },
-            yaxis: {
-                range: [0, Math.max(...this.blocktimedata)]
-            }
-        };
-        Plotly.react('chartTimeSinceBlock', dataTime, layoutTime, { displayModeBar: false });
-    }
-
-
-    drawMoneysuply() {
-        let dataTime = [{
-            x: this.timestamps,
-            y: this.moneysupplyData
-        }]
-
-        let ts1 = this.timestamps[100];
-        let ts2 = this.timestamps[Math.round(this.timestamps.length/2)];
-        let ts3 = this.timestamps[this.timestamps.length-100];
-
-        let layoutTime = {
-            height: 400,
-            xaxis: {
-                tickvals: [ts1,ts2,ts3],
-                ticktext: [ts1,ts2,ts3]
-            },
-            yaxis: {
-                range: [0, Math.max(...this.moneysupplyData)]
-            }
-        };
-        Plotly.react('chartMoneysupply', dataTime, layoutTime, { displayModeBar: false });
-    }
-
-    drawDifficulty() {
-        let dataTime = [{
-            x: this.timestamps,
-            y: this.difficultyData
-        }]
-
-        let ts1 = this.timestamps[100];
-        let ts2 = this.timestamps[Math.round(this.timestamps.length/2)];
-        let ts3 = this.timestamps[this.timestamps.length-100];
-
-        let layoutTime = {
-            height: 400,
-            xaxis: {
-                tickvals: [ts1,ts2,ts3],
-                ticktext: [ts1,ts2,ts3]
-            },
-            yaxis: {
-                range: [0, 0.001]
-            }
-        };
-        Plotly.react('chartDifficulty', dataTime, layoutTime, { displayModeBar: false });
+        if(ymax === 0){
+            layoutHash.yaxis.rangemode = 'tozero';
+        } else {
+            layoutHash.yaxis.range = [0,ymax];
+        }
+        Plotly.react(chartId, data, layoutHash, { displayModeBar: false });
     }
 
     draw() {
-        this.drawHash();
-        this.drawTime();
-        this.drawMoneysuply();
-        this.drawDifficulty();
+        this.drawChart('chartNetworkHashPower', this.networkhashdata);
+        this.drawChart('chartTimeSinceBlock', this.blocktimedata);        
+        this.drawChart('chartMoneysupply', this.moneysupplyData);
+        this.drawChart('chartDifficulty', this.difficultyData, 0.001);
     }
 
     refresh() {
