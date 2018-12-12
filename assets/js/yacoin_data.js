@@ -38,6 +38,8 @@ class YacoinDataAccess {
         };
         if(ymax === 0){
             layoutHash.yaxis.rangemode = 'tozero';
+        } else if (ymax === -1) {
+            layoutHash.yaxis.autorange = 'true';
         } else {
             layoutHash.yaxis.range = [0,ymax];
         }
@@ -47,7 +49,7 @@ class YacoinDataAccess {
     draw() {
         this.drawChart('chartNetworkHashPower', this.networkhashdata);
         this.drawChart('chartTimeSinceBlock', this.blocktimedata);        
-        this.drawChart('chartMoneysupply', this.moneysupplyData);
+        this.drawChart('chartMoneysupply', this.moneysupplyData, -1);
         this.drawChart('chartDifficulty', this.difficultyData, 0.001);
     }
 
