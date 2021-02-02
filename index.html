@@ -55,15 +55,18 @@
             </nav>
 
             <!-- Title -->
-
             <div class="row intro-row">
 
                 <div class="col-lg-3"></div>
 
                 <div class="col-lg-6 text-center">
                     <h1 class="big-heading">YACoin is Your Alternative Currency with an advanced economic model.</h1>
-                    <button type="button" class="btn btn-lg download-button button-1">Get Wallet</button>
+                    <a class="nav-link " href="#wallet-link">
+                        <button type="button" class="btn btn-lg download-button button-1">Get Wallet</button>
+                    </a>
+                    <!--
                     <button type="button" class="btn btn-outline-2DC5F4 btn-lg download-button button-2">Buy YACoin</button>
+                    -->
                 </div>
 
                 <div class="col-lg-3"></div>
@@ -73,7 +76,6 @@
     </section>
 
     <!-- Features -->
-
     <section class="white-section" id="features">
 
         <div class="container-fluid">
@@ -82,7 +84,11 @@
                 <a name="about-link">
                     <h2 class="testimonial-text">About</h2>
                 </a>
-                <p class="test2" id="test2">High-level text giving an explaination of YACoin (work in progress).</p>
+                <p class="test2" id="test2">
+                    YACoin was created in May of 2013 and was the first to introduce the N parameter of Scrypt. 
+                    Sticking to its roots, YAC will maintain the inventive scrypt-chacha (aka scrypt-jane). 
+                    NFactor will be set at 21 to be ASIC resistance but also mineable for many CPUs and GPUs.
+                </p>
             </div>
 
             <div class="row">
@@ -93,9 +99,9 @@
                 </div>
 
                 <div class="feature-box col-lg-4">
-                    <i class="icon fab fa-yahoo fa-4x"></i>
-                    <h3 class="feature-title">Bitcoin Landing</h3>
-                    <p>We have all the dogs, the greatest dogs.</p>
+                    <i class="icon fas fa-sync-alt fa-4x"></i>
+                    <h3 class="feature-title">Atomic swap support</h3>
+                    <p>OP codes for atomic swap/loans capabilities implemented.</p>
                 </div>
 
                 <div class="feature-box col-lg-4">
@@ -116,26 +122,26 @@
                 <a name="wallet-link">
                     <h2 class="testimonial-text">Wallet</h2>
                 </a>
-                <p class="test2" id="test2">Download the wallet for your OS or get the code and build it yourself.</p>
+                <p class="test2" id="test2">Download the wallet for your OS from the latest build on github actions.</p>
             </div>
 
             <div class="row">
                 <div class="feature-box col-lg-3 test3 col-md-6" id="test3">
-                    <a href="https://www.yacoin.org/">
+                    <a href="https://github.com/yacoin/yacoin/releases/download/v1.0.0/yacoin-1.0.0-bin-windows.zip">
                     <img class="press-logo" src="Images/windowslogo300x300.png" alt="tc-logo"></img>
                     <button type="button" class="btn btn-lg download-button button-1 walletbutton"><i class="fas fa-download"></i> Windows</button>
                     </a>
                 </div>
 
                 <div class="feature-box col-lg-3 test4 col-md-6" id="test4">
-                    <a href="https://www.yacoin.org/">
+                    <a href="https://github.com/yacoin/yacoin/releases/tag/v1.0.0">
                     <img class="press-logo" src="Images/ubuntulogo.png" alt="tnw-logo"></img>
                     <button type="button" class="btn btn-lg download-button button-1 walletbutton"><i class="fas fa-download"></i> Ubuntu</button>
                     </a>
                 </div>
 
                 <div class="feature-box col-lg-3 test5 col-md-6" id="test5">
-                    <a href="https://www.yacoin.org/">
+                    <a href="https://github.com/yacoin/yacoin/releases/tag/v1.0.0">
                     <img class="press-logo" src="Images/sourcelogo300x300.png" alt="biz-insider-logo"></img>
                     <button type="button" class="btn btn-lg download-button button-1 walletbutton"><i class="fas fa-download"></i> Source</button>
                     </a>
@@ -166,14 +172,14 @@
                 </div>
 
                 <div class="feature-box col-lg-3 col-md-6">
-                    <a href="https://www.yacoin.org/">
+                    <a href="https://yacoin.org">
                     <img class="press-logo presstest" src="Images/windowslogo300x300.png" alt="tc-logo">
                     <button type="button" class="btn btn-lg download-button button-1 walletbutton"><i class="fas fa-download"></i> Windows</button>
                     </a>
                 </div>
 
                 <div class="feature-box col-lg-3 col-md-6">
-                    <a href="https://www.yacoin.org/">
+                    <a href="https://yacoin.org">
                     <img class="press-logo presstest" src="Images/sourcelogo300x300.png" alt="biz-insider-logo">
                     <button type="button" class="btn btn-lg download-button button-1 walletbutton"><i class="fas fa-download"></i> Source</button>
                     </a>
@@ -204,9 +210,10 @@
                 </div>
 
                 <div class="feature-box col-lg-3 col-md-6">
-                    <a href="https://twitter.com/yacoinproject"></a>
+                    <a href="https://twitter.com/yacoinproject">
                     <i class="icon fab fa-twitter-square fa-3x"></i>
                     <h3 class="feature-title">Twitter</h3>
+                    </a>
                 </div>
 
                 <div class="feature-box col-lg-3 col-md-6">
@@ -230,7 +237,7 @@
 
     <footer class="white-section footer" id="footer">
         <div class="container-fluid">
-            Copyleft © Yacoin 2013-2020
+            Copyleft © Yacoin 2013-2021
         </div>
     </footer>
 
