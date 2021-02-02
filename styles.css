@@ -109,6 +109,14 @@ p {
     margin-top: 100px;
 }
 
+.white-section {
+    background-color: white;
+}
+
+.gray-section {
+    background-color: #eeeeee;
+}
+
 /*Download Buttons*/
 
 .download-button {
@@ -150,7 +158,6 @@ p {
 
 #features {
     padding: 7% 15%;
-    background-color: #fff;
     position: relative;
 }
 
